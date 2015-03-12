@@ -1,4 +1,12 @@
 {
   "name": "writeRound",
-  "app_id": "f2e62d9b"
+  "app_id": "f2e62d9b",
+  "gulpStartupTasks": [
+    "sass",
+    "watch"
+  ],
+  "watchPatterns": [
+    "www/**/*",
+    "!www/lib/**/*"
+  ]
 }
