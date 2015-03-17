@@ -2,15 +2,15 @@ angular.module('starter.controllers', [])
 
 .controller('DashCtrl', function($scope) {})
 
-.controller('ChatsCtrl', function($scope, Chats) {
-  $scope.chats = Chats.all();
-  $scope.remove = function(chat) {
-    Chats.remove(chat);
+.controller('SessionsCtrl', function($scope, Sessions) {
+  $scope.sessions = Sessions.all();
+  $scope.remove = function(session) {
+    Sessions.remove(session);
   }
 })
 
-.controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
-  $scope.chat = Chats.get($stateParams.chatId);
+.controller('SessionDetailCtrl', function($scope, $stateParams, Sessions) {
+  $scope.session = Sessions.get($stateParams.sessionId);
 })
 
 .controller('AccountCtrl', function($scope) {
