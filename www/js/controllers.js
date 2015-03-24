@@ -1,6 +1,10 @@
 angular.module('starter.controllers', [])
 
-.controller('LoginCtrl', function($scope){})
+.controller('LoginCtrl', function($scope, $state){
+    $scope.login = function(user) {
+        $state.go('tab.dash');
+    };
+})
 
 .controller('RegisterCtrl', function($scope){})
 
