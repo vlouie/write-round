@@ -45,6 +45,7 @@ app.post('/login',function(req,res){
           //sess.username = req.body.username;
           sess.username = rows[0].username;
           sess.user_id = rows[0].id;
+          // TODO add logic to match passwords
         }
         else{
           console.log('Error while performing Query.');

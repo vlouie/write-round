@@ -1,8 +1,16 @@
 angular.module('starter.controllers', [])
 
 .controller('LoginCtrl', function($scope, $state){
+    this.user = {};
+
     $scope.login = function(user) {
-        $state.go('tab.dash');
+        console.log(user);
+        $http.post('http://localhost:3000/login', {username: user.username, password: user.password}).
+            success(function(data){
+                $state.go('tab.dash');
+            }).
+            error(function(data){
+            });
     };
 })
 
