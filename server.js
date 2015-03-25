@@ -9,8 +9,11 @@ var connection = mysql.createConnection({
 });
 
 var app = express();
+var bodyParser = require('body-parser');
 
+app.use(bodyParser.json());
 app.use(express.static('./www'));
+app.use(express.static('./lib'));
 app.use(session({secret: 'ssshhhhh'}));
 
 connection.connect(function(err){
@@ -33,6 +36,8 @@ app.get('/',function(req,res){
 });
 
 app.post('/login',function(req,res){
+
+    console.log(req.body);
     sess = req.session;
 
     connection.query({
@@ -42,7 +47,6 @@ app.post('/login',function(req,res){
       }, function(err, rows, fields) {
         if (!err){
           console.log(rows);
-          //sess.username = req.body.username;
           sess.username = rows[0].username;
           sess.user_id = rows[0].id;
           // TODO add logic to match passwords

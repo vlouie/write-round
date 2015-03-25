@@ -1,9 +1,9 @@
 angular.module('starter.controllers', [])
 
-.controller('LoginCtrl', function($scope, $state){
+.controller('LoginCtrl', ['$scope', '$state', '$http', function($scope, $state, $http){
     this.user = {};
 
-    $scope.login = function(user) {
+    this.login = function(user) {
         console.log(user);
         $http.post('http://localhost:3000/login', {username: user.username, password: user.password}).
             success(function(data){
@@ -12,7 +12,7 @@ angular.module('starter.controllers', [])
             error(function(data){
             });
     };
-})
+}])
 
 .controller('RegisterCtrl', function($scope){})
 
