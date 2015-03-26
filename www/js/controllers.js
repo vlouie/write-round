@@ -7,14 +7,29 @@ angular.module('starter.controllers', [])
         console.log(user);
         $http.post('http://localhost:3000/login', {username: user.username, password: user.password}).
             success(function(data){
+                console.log(data);
                 $state.go('tab.dash');
             }).
             error(function(data){
+                console.log('http post error :(');
+                console.log(data);
             });
     };
-}])
+}]);
 
-.controller('RegisterCtrl', function($scope){})
+.controller('RegisterCtrl', ['$scope', '$state', '$http', function($scope, $state, $http){
+    this.user = {};
+
+    this.register = function(user) {
+        //TODO send username, email, password to server
+    };
+}]);
+
+.controller('LogoutCtrl', ['$scope', '$state', '$http', function($scope, $state, $http){
+    this.logout = function(user) {
+        //TODO send HTTP request to /logout
+    };
+}]);
 
 .controller('DashCtrl', function($scope) {})
 

@@ -39,6 +39,8 @@ app.post('/login',function(req,res){
 
     console.log(req.body);
     sess = req.session;
+    var hash = bcrypt.hashSync(req.body.password);
+    console.log("hash:", hash);
 
     connection.query({
       sql: 'SELECT user.* from user where user.username = ?',
@@ -47,12 +49,20 @@ app.post('/login',function(req,res){
       }, function(err, rows, fields) {
         if (!err){
           console.log(rows);
-          sess.username = rows[0].username;
-          sess.user_id = rows[0].id;
-          // TODO add logic to match passwords
+          if (bcrypt.compareSync(rows[0].password, hash)) {
+            sess.username = rows[0].username;
+            sess.user_id = rows[0].id;
+            console.log('yay the password is correct!');
+            res.send('loginSuccess', 200);
+          }
+          else {
+            console.log('wrong password');
+            res.send('incorrectPassword', 403);
+          }
         }
         else{
           console.log('Error while performing Query.');
+          res.send('databaseFail', 500);
         }
     });
 
