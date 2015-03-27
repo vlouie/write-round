@@ -10,6 +10,7 @@ var connection = mysql.createConnection({
 
 var app = express();
 var bodyParser = require('body-parser');
+var bcrypt = require('bcrypt-nodejs');
 
 app.use(bodyParser.json());
 app.use(express.static('./www'));
