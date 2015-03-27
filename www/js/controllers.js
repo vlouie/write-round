@@ -4,9 +4,9 @@ angular.module('starter.controllers', [])
     this.user = {};
 
     this.login = function(user) {
-        console.log(user);
         $http.post('http://localhost:3000/login', {username: user.username, password: user.password}).
             success(function(data){
+                // TODO handle different data results
                 console.log(data);
                 $state.go('tab.dash');
             }).
@@ -15,6 +15,19 @@ angular.module('starter.controllers', [])
                 console.log(data);
             });
     };
+
+    this.logout = function() {
+        $http.post('http://localhost:3000/logout', {}).
+            success(function(data){
+                // TODO handle different data results
+                console.log(data);
+                $state.go('login');
+            }).
+            error(function(data){
+                console.log('http logout post error :(');
+                console.log(data);
+            });
+    }
 }])
 
 .controller('RegisterCtrl', ['$scope', '$state', '$http', function($scope, $state, $http){

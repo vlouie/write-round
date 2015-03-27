@@ -38,10 +38,8 @@ app.get('/',function(req,res){
 
 app.post('/login',function(req,res){
 
-    console.log(req.body);
     sess = req.session;
     var hash = bcrypt.hashSync(req.body.password);
-    console.log("hash:", hash);
 
     connection.query({
       sql: 'SELECT user.* from user where user.username = ?',
@@ -67,7 +65,7 @@ app.post('/login',function(req,res){
         }
     });
 
-    res.end('done');
+    //res.end('done');
 });
 
 app.get('/logout',function(req,res){
