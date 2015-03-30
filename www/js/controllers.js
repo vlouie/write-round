@@ -34,7 +34,16 @@ angular.module('starter.controllers', [])
     this.user = {};
 
     this.register = function(user) {
-        //TODO send username, email, password to server
+        $http.post('http://localhost:3000/register', {username: user.username, password: user.password, email: user.email}).
+            success(function(data){
+                console.log(data);
+                // set session stuff?
+                $state.go('tab.dash');
+            }).
+            error(function(data){
+                console.log('http post error :(');
+                console.log(data);
+            });
     };
 }])
 

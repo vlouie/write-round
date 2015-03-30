@@ -48,7 +48,7 @@ app.post('/login',function(req,res){
       }, function(err, rows, fields) {
         if (!err){
           console.log(rows);
-          if (bcrypt.compareSync(rows[0].password, hash)) {
+          if (rows[0].password == hash) {
             sess.username = rows[0].username;
             sess.user_id = rows[0].id;
             console.log('yay the password is correct!');
@@ -77,6 +77,31 @@ app.get('/logout',function(req,res){
             res.redirect('/');
         }
     });
+});
+
+app.post('/register',function(req,res){
+
+    sess = req.session;
+    var hash = bcrypt.hashSync(req.body.password);
+
+    connection.query({
+      sql: 'INSERT INTO user SET user.username = ?, user.password = ?, user.email = ?',
+      timeout: 40000, // 40s
+      values: [req.body.username, hash, req.body.email]
+      }, function(err, rows, fields) {
+        if (!err){
+          console.log(rows);
+          sess.username = rows[0].username;
+          sess.user_id = rows[0].id;
+          res.send('registerSuccess', 200);
+        }
+        else{
+          console.log('Error while performing Query.');
+          res.send('databaseFail', 500);
+        }
+    });
+
+    //res.end('done');
 });
 
 //app.get("/",function(req,res){

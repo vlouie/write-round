@@ -1,4 +1,5 @@
 NodeJS + mySQL + AngularJS
+mysql -u root -p write_round < stuff/writeRound/db/create_tables.sql
 
 
 Your Ionic project is ready to go! Some quick tips:
