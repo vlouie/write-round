@@ -3,7 +3,7 @@ CREATE TABLE IF NOT EXISTS user (
 	username varchar(50) NOT NULL,
 	password varchar(255) NOT NULL,
 	email varchar(50) NOT NULL,
-	created_at datetime NOT NULL,
+	created_at datetime NOT NULL DEFAULT NOW(),
 	PRIMARY KEY ( id ),
 	CONSTRAINT uniq_user UNIQUE ( username )
 );
@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS session (
 	id int NOT NULL AUTO_INCREMENT,
 	title varchar(255) NOT NULL,
 	current_turn int NOT NULL,
-	created_at datetime NOT NULL,
+	created_at datetime NOT NULL DEFAULT NOW(),
 	updated_at datetime NOT NULL,
 	finished boolean NOT NULL DEFAULT 0,
 	PRIMARY KEY ( id )

@@ -1,6 +1,7 @@
 angular.module('starter.controllers', [])
 
 .controller('LoginCtrl', ['$scope', '$state', '$http', function($scope, $state, $http){
+console.log('idk');
     this.user = {};
 
     this.login = function(user) {
@@ -17,6 +18,7 @@ angular.module('starter.controllers', [])
     };
 
     this.logout = function() {
+    console.log('logout function called');
         $http.post('http://localhost:3000/logout', {}).
             success(function(data){
                 // TODO handle different data results

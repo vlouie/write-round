@@ -81,6 +81,7 @@ app.get('/logout',function(req,res){
 
 app.post('/register',function(req,res){
 
+console.log(req.body);
     sess = req.session;
     var hash = bcrypt.hashSync(req.body.password);
 
@@ -89,13 +90,30 @@ app.post('/register',function(req,res){
       timeout: 40000, // 40s
       values: [req.body.username, hash, req.body.email]
       }, function(err, rows, fields) {
+      console.log(rows);
         if (!err){
-          console.log(rows);
-          sess.username = rows[0].username;
-          sess.user_id = rows[0].id;
-          res.send('registerSuccess', 200);
+            connection.query({
+              sql: 'SELECT user.* from user WHERE user.username = ?',
+              timeout: 40000, // 40s
+              values: [req.body.username]
+              }, function(err, rows, fields) {
+                if (!err) {
+                  console.log(rows);
+                  sess.username = rows[0].username;
+                  sess.user_id = rows[0].id;
+                  res.send('registerSuccess', 200);
+                }
+                else {
+                  console.log(err);
+                  console.log(err.code);
+                  console.log('Error while performing Query.');
+                  res.send('databaseFail', 500);
+                }
+            });
         }
         else{
+        console.log(err);
+        console.log(err.code);
           console.log('Error while performing Query.');
           res.send('databaseFail', 500);
         }
