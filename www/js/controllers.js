@@ -1,7 +1,6 @@
 angular.module('starter.controllers', [])
 
 .controller('LoginCtrl', ['$scope', '$state', '$http', function($scope, $state, $http){
-console.log('idk');
     this.user = {};
 
     this.login = function(user) {
@@ -17,19 +16,6 @@ console.log('idk');
             });
     };
 
-    this.logout = function() {
-    console.log('logout function called');
-        $http.post('http://localhost:3000/logout', {}).
-            success(function(data){
-                // TODO handle different data results
-                console.log(data);
-                $state.go('login');
-            }).
-            error(function(data){
-                console.log('http logout post error :(');
-                console.log(data);
-            });
-    }
 }])
 
 .controller('RegisterCtrl', ['$scope', '$state', '$http', function($scope, $state, $http){
@@ -49,12 +35,6 @@ console.log('idk');
     };
 }])
 
-.controller('LogoutCtrl', ['$scope', '$state', '$http', function($scope, $state, $http){
-    this.logout = function(user) {
-        //TODO send HTTP request to /logout
-    };
-}])
-
 .controller('DashCtrl', function($scope) {})
 
 .controller('SessionsCtrl', function($scope, Sessions) {
@@ -68,8 +48,22 @@ console.log('idk');
   $scope.session = Sessions.get($stateParams.sessionId);
 })
 
-.controller('AccountCtrl', function($scope) {
+.controller('AccountCtrl', ['$scope', '$state', '$http', function($scope, $state, $http) {
   $scope.settings = {
     enableFriends: true
   };
-});
+
+ $scope.logout = function() {
+    console.log('logout function called');
+        $http.post('http://localhost:3000/logout', {}).
+            success(function(data){
+                // TODO handle different data results
+                console.log(data);
+                $state.go('login');
+            }).
+            error(function(data){
+                console.log('http logout post error :(');
+                console.log(data);
+            });
+    };
+}]);

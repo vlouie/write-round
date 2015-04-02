@@ -39,7 +39,6 @@ app.get('/',function(req,res){
 app.post('/login',function(req,res){
 
     sess = req.session;
-    var hash = bcrypt.hashSync(req.body.password);
 
     connection.query({
       sql: 'SELECT user.* from user where user.username = ?',
@@ -48,7 +47,7 @@ app.post('/login',function(req,res){
       }, function(err, rows, fields) {
         if (!err){
           console.log(rows);
-          if (rows[0].password == hash) {
+          if (bcrypt.compareSync(req.body.password, rows[0].password)) {
             sess.username = rows[0].username;
             sess.user_id = rows[0].id;
             console.log('yay the password is correct!');
@@ -68,7 +67,7 @@ app.post('/login',function(req,res){
     //res.end('done');
 });
 
-app.get('/logout',function(req,res){
+app.post('/logout',function(req,res){
     req.session.destroy(function(err){
         if(err){
             console.log(err);
