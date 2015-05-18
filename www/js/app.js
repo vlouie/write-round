@@ -66,23 +66,34 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   })
 
   .state('tab.sessions', {
-      url: '/sessions',
-      views: {
-        'tab-sessions': {
-          templateUrl: 'templates/tab-sessions.html',
-          controller: 'SessionsCtrl'
-        }
+    url: '/sessions',
+    views: {
+      'tab-sessions': {
+        templateUrl: 'templates/tab-sessions.html',
+        controller: 'SessionsCtrl'
       }
-    })
-    .state('tab.session-detail', {
-      url: '/sessions/:sessionId',
-      views: {
-        'tab-sessions': {
-          templateUrl: 'templates/session-detail.html',
-          controller: 'SessionDetailCtrl'
-        }
+    }
+  })
+
+  .state('tab.session-new', {
+    url: '/sessions/new',
+    views: {
+      'tab-sessions': {
+        templateUrl: 'templates/session-new.html',
+        //controller: 'SessionsCtrl'
       }
-    })
+    }
+  })
+
+  .state('tab.session-detail', {
+    url: '/sessions/:sessionId',
+    views: {
+      'tab-sessions': {
+        templateUrl: 'templates/session-detail.html',
+        controller: 'SessionDetailCtrl'
+      }
+    }
+  })
 
   .state('tab.account', {
     url: '/account',

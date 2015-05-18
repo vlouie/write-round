@@ -1,5 +1,6 @@
 <ion-view view-title="Sessions">
-  <ion-content>
+  <ion-content class="padding">
+    <a class="button button-balanced icon icon-left ion-ios-compose" href="#/tab/sessions/new" style="margin-bottom:20px">New Story Session</a>
     <ion-list>
       <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="session in sessions" type="item-text-wrap" href="#/tab/sessions/{{session.id}}">
         <img ng-src="{{session.face}}">
